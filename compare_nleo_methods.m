@@ -23,7 +23,7 @@
 % John M. O' Toole, University College Cork
 % Started: 04-04-2014
 %
-% last update: Time-stamp: <2014-04-05 20:55:30 (otoolej)>
+% last update: Time-stamp: <2014-04-06 19:00:58 (otoolej)>
 %-------------------------------------------------------------------------------
 function [roc_summary_stats,corr_cc]=compare_nleo_methods(data_type,method1,method2,fout,MA_FILT)
 if(nargin<1 || isempty(data_type)), data_type='normterms'; end

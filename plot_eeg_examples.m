@@ -16,7 +16,7 @@
 % John M. O' Toole, University College Cork
 % Started: 04-04-2014
 %
-% last update: Time-stamp: <2014-04-06 02:27:44 (otoolej)>
+% last update: Time-stamp: <2014-04-07 14:09:08 (otoolej)>
 %-------------------------------------------------------------------------------
 function []=plot_eeg_examples(PRINT_PLOTS)
 if(nargin<1 || isempty(PRINT_PLOTS)), PRINT_PLOTS=0; end
@@ -36,17 +36,17 @@ x_preterms=do_bandpass_filtering(x_preterms,Fs,LOW_PASS_DATA,[]);
 
 
 figure(1); clf; hold all;
-nn=(0:50*Fs);
+nn=(0:30*Fs);
 xx=x_normterms(nn+1);
 t=nn./Fs;    
-plot(t,xx);
+hp(1)=plot(t,xx);
 xm=x_mask(nn+1);
 xm(xm==0)=NaN;
 hm=plot(t,xm-110,'linewidth',7,'color',[1 1 1].*0.3);
 
 plot_bias=350;
 xx=x_preterms(nn+1);
-plot(t,xx-plot_bias,'b');
+hp(2)=plot(t,xx-plot_bias,'b');
 xm=x_mask_pre(nn+1);
 xm(xm==0)=NaN;
 hm=plot(t,xm+min(xx)-20-plot_bias,'linewidth',7,'color',[1 1 1].*0.3);
@@ -61,13 +61,13 @@ set(gca,'yticklabel',{'-100','0','100','-70', '0', '70'});
 
 xlabel('time (seconds)');
 ylabel('voltage (\muV)');
-set_gca_fonts('Arial',10,gca);
+set_gca_fonts('Arial',12,gca);
 
-
+set(hp,'linewidth',0.6);
 if(PRINT_PLOTS)
     %    set(gca,'Position',[0 0 1 1]);
-    set(gcf, 'Units','centimeters', 'Position',[0 0 20 6]);
-    set(gcf, 'PaperPositionMode','auto');
+% $$$     set(gcf, 'Units','centimeters', 'Position',[0 0 10 6]);
+% $$$     set(gcf, 'PaperPositionMode','auto');
     
     
     print2eps([PIC_DIR 'eeg_preterms_normterms_examples.eps']); %,'-depsc2');
