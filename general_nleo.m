@@ -5,14 +5,28 @@
 % Syntax: x_nleo=general_nleo(x,l,p,q,s)
 %
 % Inputs: 
-%     x,l,p,q,s - 
+%     x       - input signal
+%     l,p,q,s - parameters for the operator; integer values and must satisfy: 
+%                 l+p=q+s and [l,p]≠[q,s]
 %
 % Outputs: 
-%     x_nleo - 
+%     x_nleo - output nonlinear energy operator
 %
 % Example:
-%     
+%     % generate test signals:
+%     N=256; n=0:N-1;
+%     w1=pi/(N/32); ph1=-pi+2*pi*rand(1,1);  a1=1.3;
+%     x1=a1.*cos(w1.*n + ph1);  
 %
+%     % compute instantaneous energy:
+%     x_nleo=general_nleo(x1,1,2,0,3);
+%
+%     % plot:
+%     figure(1); clf; 
+%     subplot(211); plot(x1); ylabel('amplitude');
+%     subplot(212); plot(x_nleo,'-'); ylim([0 0.5])
+%     ylabel('energy');
+
 
 % John M. O' Toole, University College Cork
 % Started: 28-01-2014

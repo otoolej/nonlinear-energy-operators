@@ -1,41 +1,41 @@
 %-------------------------------------------------------------------------------
-% properties_test_Hilbert_NLEO: Verify properties for 'Hilbert--NLEO' type operator
+% properties_test_Hilbert_NLEO: Verify properties for 'envelope--derivative' 
+% operator
 %
-% Syntax: []=properties_test_Hilbert_NLEO(prop_numb)
+% Syntax: properties_test_Hilbert_NLEO(prop_numb)
 %
 % Inputs: 
-%     prop_numb - 
-%
-% Outputs: 
-%     [] - 
+%     prop_numb - either: 0,1,2,4
 %
 % Example:
-%     
+%     >> properties_test_Hilbert_NLEO(1);
 %
 
 % John M. O' Toole, University College Cork
 % Started: 25-03-2014
 %
-% last update: Time-stamp: <2014-04-06 02:42:51 (otoolej)>
+% last update: Time-stamp: <2014-04-18 12:03:11 (otoolej)>
 %-------------------------------------------------------------------------------
 function []=properties_test_Hilbert_NLEO(prop_numb,PRINT_PLOTS)
 if(nargin<1 || isempty(prop_numb)), prop_numb=4; end
 if(nargin<2 || isempty(PRINT_PLOTS)), PRINT_PLOTS=0; end
 
 
+% for plotting:
 FANCY_PLOT=1;
 FONT_NAME='Arial';
 FONT_SIZE=14;
 
-
 if(PRINT_PLOTS), FANCY_PLOT=1; end
 method_teager_str=sprintf('%s%s%s','Teager','-','Kaiser');
 method_hilbert_str=sprintf('%s%s%s','envelope','-','derivative');
+leg_pos=[];
 
-DO_MA_FILTER=0; 
-win_length=25;
 Fs=1;
 
+%---------------------------------------------------------------------
+% 0. define some simple test signals of the form:  a₁cos(ω₁t + φ₁)
+%---------------------------------------------------------------------
 N=256;
 n=0:N-1;
 w1=pi/(N/32); w2=pi/(N/8);
@@ -45,9 +45,14 @@ a1=1.3; a2=3.1;
 x1=a1.*cos(w1.*n + ph1); 
 x2=a2.*cos(w2.*n + ph2);
 
+
 x=[]; extact=[];
 switch prop_numb
+    
   case 0
+    %---------------------------------------------------------------------
+    % concatentated (in time) signals: a₁cos(ω₁t + φ₁) PLUS a₂cos(ω₂t + φ₂) 
+    %---------------------------------------------------------------------
     Nh=ceil(N/2);
     a1=1; a2=1;
     w1=pi/(N/32); w2=pi/(N/16);
@@ -57,24 +62,44 @@ switch prop_numb
     extact_tk{1}=[ones(1,Nh).*(a2^2)*sin(w2)^2 ones(1,Nh).*(a1^2)*sin(w1)^2];    
     leg_pos=[0.57 0.38];        
     
+    % for plotting:    
+    ysig_ticks=[-1 0 1];     ysig_limits=[-1.4 1.4];
+    ynleo_ticks=[0 0.1 0.2]; ynleo_limits=[0 0.27];
+
+    
   case 1
+    %---------------------------------------------------------------------
+    % stationary signal: a₁cos(ω₁t + φ₁)
+    %---------------------------------------------------------------------
     x{1}=x1;
     extact{1}=ones(1,N).*(a1^2)*(w1^2);    
     extact_tk{1}=ones(1,N).*(a1^2)*sin(w1)^2;        
-% $$$     extact_tk{1}=extact{1};
-
+    
+    % for plotting:    
+    ysig_ticks=[-1 0 1];     ysig_limits=[-1.4 1.4];
+    ynleo_ticks=[0 0.1 0.2]; ynleo_limits=[0 0.27];
+    leg_pos=[0.55 0.3];    
+    
     
   case 2
+    %---------------------------------------------------------------------
+    % signal with amplitude modulation: e^{rt} a₁cos(ω₁t + φ₁)
+    %---------------------------------------------------------------------
     r1=0.005;
     x{1}=exp(-r1.*n).*x1;
     extact{1}=(a1^2).*exp(-2*r1.*n).*(sin(w1)^2+r1^2);
     extact_tk{1}=(a1^2).*exp(-2*r1.*n).*sin(w1)^2;    
     
+    % for plotting:    
     ysig_ticks=[-1 0 1];     ysig_limits=[-1.4 1.4];
     ynleo_ticks=[0 0.1 0.2]; ynleo_limits=[0 0.27];
     leg_pos=[0.55 0.33];    
     
   case 3
+    %---------------------------------------------------------------------
+    % signal with frequency modulation: a₁cos(φ(t))
+    %---------------------------------------------------------------------
+
     if_law=0.1+0.3*sin(n.*pi/N);
     ph=cumsum(if_law);
     x{1}=a1.*cos( ph + ph1 );
@@ -86,8 +111,12 @@ switch prop_numb
     ysig_ticks=[-1 0 1];     ysig_limits=[-1.4 1.4];
     ynleo_ticks=[0 0.1 0.2]; ynleo_limits=[0 0.27];
     leg_pos=[0.35 0.2];
+
     
   case 4
+    %---------------------------------------------------------------------
+    % sum of two signals: a₁cos(ω₁t + φ₁) + a₂cos(ω₂t + φ₂) 
+    %---------------------------------------------------------------------
     x{1}=x1+x2;
     
     extact{1}=(a1^2)*(w1^2) + (a2^2)*(w2^2) + ...
@@ -96,10 +125,13 @@ switch prop_numb
     extact_tk{1}=(a1^2)*(w1^2) + (a2^2)*(w2^2) + ...
         a1*a2*(1-cos(w1+w2)).*cos( n.*(w1-w2)+ph1-ph2 );
 
+    % for plotting:    
     ysig_ticks=[-3 0 3]; ysig_limits=[-4.5 4.5];
     ynleo_ticks=[0 1 2]; ynleo_limits=[-0.3 1.2];
     leg_pos=[0.57 0.38];    
     
+  otherwise
+    error('input argument either: 0,1,2,3, or 4');
 end
 
 
@@ -108,6 +140,9 @@ if(FANCY_PLOT)
 end
 
 
+%---------------------------------------------------------------------
+% 1. generate operators and plot
+%---------------------------------------------------------------------
 for n=1:length(x)
       
     % generate the NLEO functions:
@@ -123,9 +158,11 @@ for n=1:length(x)
     hp(3)=plot(npart,xn_teager{n}(npart),'--r');
     
     h=legend(method_hilbert_str,method_teager_str);
-    cur_pos=get(h,'position');
-    set(h,'position',[leg_pos(1) leg_pos(2) cur_pos(3) cur_pos(4)]);
+    if(~isempty(leg_pos))
+        cur_pos=get(h,'position');
+        set(h,'position',[leg_pos(1) leg_pos(2) cur_pos(3) cur_pos(4)]);
 % $$$     legend(h,'boxoff');
+    end
 
 
     if(FANCY_PLOT)
@@ -149,11 +186,5 @@ for n=1:length(x)
             print2eps([PIC_DIR 'testing_property_no' num2str(prop_numb) '.eps']);
         end
     end
-
-    
-% $$$     figure(n+10); clf; hold all;
-% $$$     subplot(2,1,1); hold all; plot(x{n}); 
-% $$$     subplot(2,1,2); hold all; plot(xn_teager{n}); plot(extact_tk{n});
-
 end
 

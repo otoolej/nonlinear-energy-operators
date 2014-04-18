@@ -1,14 +1,13 @@
 %-------------------------------------------------------------------------------
 % script_test_eeg_data: Test the different methods with the EEG data and write results
-% to file
+% to file. 
+%
+% **NB: EEG data set is REQUIRED for this to run.**
 %
 % Syntax: []=script_test_eeg_data()
 %
 % Inputs: 
-%      - 
-%
-% Outputs: 
-%     [] - 
+%      PRINT_PLOTS - print or not, either 0 or 1; 
 %
 % Example:
 %     
@@ -17,13 +16,18 @@
 % John M. O' Toole, University College Cork
 % Started: 04-04-2014
 %
-% last update: Time-stamp: <2014-04-06 02:27:56 (otoolej)>
+% last update: Time-stamp: <2014-04-18 11:05:16 (otoolej)>
 %-------------------------------------------------------------------------------
 function []=script_test_eeg_data(PRINT_PLOTS)
 if(nargin<1 || isempty(PRINT_PLOTS)), PRINT_PLOTS=0; end
 
-
 nleo_parameters;
+
+if(~exist(DATA_DIR,'dir'))
+    error('EEG data is needed for this function.');
+end
+    
+
 methods_all={'teager','agarwal','abs_teager','palmu','envelope_diff'};
 fout=fopen([PIC_DIR 'eeg_results_out.org'],'w');
 

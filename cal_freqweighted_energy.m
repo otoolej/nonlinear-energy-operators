@@ -7,22 +7,41 @@
 % Inputs: 
 %     x           - input signal
 %     Fs          - sampling frequency
-%     method      - either 'teager','arg',...
+%     method      - either 'teager','agarwal', 'envelope_diff', 'palmu', 'abs_teager',
+%                   or 'env_only'
 %     wlength_ma  - length (in samples) of output moving-average filter; set to [] to
 %                   turn off
 %     bandpass_filter_params - band-pass filter values; set to [] to turn off
 %
 % Outputs: 
-%     [x_nleo] - 
+%     [x_nleo] - output operator
 %
 % Example:
-%     
 %
+%     % generate two sinusoidal signals:
+%     N=256; n=0:N-1;
+%     w1=pi/(N/32); ph1=-pi+2*pi*rand(1,1);  a1=1.3;
+%     w2=pi/(N/8); ph2=-pi+2*pi*rand(1,1);  a2=3.1;
+%     x1=a1.*cos(w1.*n + ph1);  x2=a2.*cos(w2.*n + ph2);
+%     x=x1+x2;
+%
+%     % compute instantaneous energy:
+%     x_env_diff=cal_freqweighted_energy(x,1,'envelope_diff');
+%     x_teager  =cal_freqweighted_energy(x,1,'teager');
+%
+%     % plot:
+%     figure(1); clf; 
+%     subplot(211); plot(x); ylabel('amplitude');
+%     subplot(212); hold all; plot(x_env_diff,'-'); plot(x_teager,'--');
+%     ylabel('energy');
+%     legend('envelope-derivative','Teager-Kaiser');
+%
+
 
 % John M. O' Toole, University College Cork
 % Started: 04-04-2014
 %
-% last update: Time-stamp: <2014-04-06 02:36:45 (otoolej)>
+% last update: Time-stamp: <2014-04-18 12:23:59 (otoolej)>
 %-------------------------------------------------------------------------------
 function [x_nleo]=cal_freqweighted_energy(x,Fs,method,wlength_ma, ...
                                                  bandpass_filter_params)

@@ -44,40 +44,40 @@ NLEO_params_opt.preterms.abs_teager      =[];
 %---------------------------------------------------------------------
 % range of parameters (if using cross-validation)
 %---------------------------------------------------------------------
-CROSS_VALIDATION=0;
-TRAIN_ALL_DATA=0;
-
-if(CROSS_VALIDATION), TRAIN_ALL_DATA=0; end
-
-% for term data:
-NLEO_params.normterms.teager       ={ [0:0.2:1],  [1:2:12] };  
-NLEO_params.normterms.agarwal      ={ [0:0.2:1],  [1:2:12] };   
-NLEO_params.normterms.envelope_diff={ [0:0.2:1],  [1:2:12] };   
-NLEO_params.normterms.palmu        ={ [0:0.2:1],  [1:1:4] };   
-NLEO_params.normterms.env_only     ={ [0:0.2:1],  [1:1:4] };   
-
-% $$$ NLEO_mod_params_range.normterms  ={ [0:0.2:1],  [1:1:4] };
-% $$$ NLEO_kirsi_params_range.normterms={ [0:0.2:1],  [1:1:4] };
-
-% for preterm data:
-% $$$ NLEO_params.preterms.down_samp      ={ [0:0.1:0.5],  [1:0.5:14] };
-% $$$ NLEO_params.preterms.plain_nleo     ={ [0:0.1:0.5],  [1:1:14] };
-% $$$ NLEO_params.preterms.hilbert_diff_op={ [0:0.1:0.5],  [1:1:14] };
-% $$$ NLEO_params.preterms.env_only       ={ [0:0.1:0.5],  [1:0.5:14] };
-
-NLEO_params.preterms.teager       ={ [0:0.2:2],  [2:2:8] };  
-NLEO_params.preterms.agarwal      ={ [0:0.2:2],  [2:2:8] };
-NLEO_params.preterms.envelope_diff={ [0:0.2:2],  [2:2:8] };   
-NLEO_params.preterms.palmu        ={ [0:0.2:2],  [2:2:8] };   
-NLEO_params.preterms.env_only     ={ [0:0.2:2],  [2:2:8] };   
-
-
-% $$$ NLEO_mod_params_range.preterms  ={ [0:0.1:0.5],  [1:0.5:14] };
-% $$$ NLEO_kirsi_params_range.preterms={ [0:0.1:0.5],  [1:0.5:14] };
-
-% $$$ NLEO_mod_params_range.preterms  ={ [0:0.2:0.5],  [1:1:14] };
-% $$$ NLEO_kirsi_params_range.preterms={ [0:0.2:0.5],  [1:1:14] };
-
-
-
-
+% $$$ CROSS_VALIDATION=0;
+% $$$ TRAIN_ALL_DATA=0;
+% $$$ 
+% $$$ if(CROSS_VALIDATION), TRAIN_ALL_DATA=0; end
+% $$$ 
+% $$$ % for term data:
+% $$$ NLEO_params.normterms.teager       ={ [0:0.2:1],  [1:2:12] };  
+% $$$ NLEO_params.normterms.agarwal      ={ [0:0.2:1],  [1:2:12] };   
+% $$$ NLEO_params.normterms.envelope_diff={ [0:0.2:1],  [1:2:12] };   
+% $$$ NLEO_params.normterms.palmu        ={ [0:0.2:1],  [1:1:4] };   
+% $$$ NLEO_params.normterms.env_only     ={ [0:0.2:1],  [1:1:4] };   
+% $$$ 
+% $$$ % $$$ NLEO_mod_params_range.normterms  ={ [0:0.2:1],  [1:1:4] };
+% $$$ % $$$ NLEO_kirsi_params_range.normterms={ [0:0.2:1],  [1:1:4] };
+% $$$ 
+% $$$ % for preterm data:
+% $$$ % $$$ NLEO_params.preterms.down_samp      ={ [0:0.1:0.5],  [1:0.5:14] };
+% $$$ % $$$ NLEO_params.preterms.plain_nleo     ={ [0:0.1:0.5],  [1:1:14] };
+% $$$ % $$$ NLEO_params.preterms.hilbert_diff_op={ [0:0.1:0.5],  [1:1:14] };
+% $$$ % $$$ NLEO_params.preterms.env_only       ={ [0:0.1:0.5],  [1:0.5:14] };
+% $$$ 
+% $$$ NLEO_params.preterms.teager       ={ [0:0.2:2],  [2:2:8] };  
+% $$$ NLEO_params.preterms.agarwal      ={ [0:0.2:2],  [2:2:8] };
+% $$$ NLEO_params.preterms.envelope_diff={ [0:0.2:2],  [2:2:8] };   
+% $$$ NLEO_params.preterms.palmu        ={ [0:0.2:2],  [2:2:8] };   
+% $$$ NLEO_params.preterms.env_only     ={ [0:0.2:2],  [2:2:8] };   
+% $$$ 
+% $$$ 
+% $$$ % $$$ NLEO_mod_params_range.preterms  ={ [0:0.1:0.5],  [1:0.5:14] };
+% $$$ % $$$ NLEO_kirsi_params_range.preterms={ [0:0.1:0.5],  [1:0.5:14] };
+% $$$ 
+% $$$ % $$$ NLEO_mod_params_range.preterms  ={ [0:0.2:0.5],  [1:1:14] };
+% $$$ % $$$ NLEO_kirsi_params_range.preterms={ [0:0.2:0.5],  [1:1:14] };
+% $$$ 
+% $$$ 
+% $$$ 
+% $$$ 

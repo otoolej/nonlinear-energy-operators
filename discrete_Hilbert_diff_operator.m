@@ -4,7 +4,7 @@
 % transform (of length-N) for Hilbert transform
 %
 % Γ[x(n)] = y(n)² + H[y(n)]², where y(n) is the derivative of x(n) and H[] is the
-% Hilber transform
+% Hilbert transform
 %
 % Syntax: [x_nleo]=discrete_Hilbert_diff_operator(x)
 %
@@ -12,16 +12,29 @@
 %     x - input signal
 %
 % Outputs: 
-%     [x_nleo] - 
+%     x_nleo - envelope-derivative operator (i.e. energy measure)
 %
 % Example:
+%     % generate test signals:
+%     N=256; n=0:N-1;
+%     w1=pi/(N/32); ph1=-pi+2*pi*rand(1,1);  a1=1.3;
+%     x1=a1.*cos(w1.*n + ph1);  
+%
+%     % compute instantaneous energy:
+%     x_env_diff=discrete_Hilbert_diff_operator(x1);
+%
+%     % plot:
+%     figure(1); clf; 
+%     subplot(211); plot(x1); ylabel('amplitude');
+%     subplot(212); plot(x_env_diff,'-'); ylim([0 0.5])
+%     ylabel('energy');
 %     
 %
 
 % John M. O' Toole, University College Cork
 % Started: 03-04-2014
 %
-% last update: Time-stamp: <2014-04-04 16:35:12 (otoolej)>
+% last update: Time-stamp: <2014-04-18 13:09:57 (otoolej)>
 %-------------------------------------------------------------------------------
 function [x_nleo]=discrete_Hilbert_diff_operator(x)
 
@@ -55,6 +68,9 @@ x_nleo=[0 0 xx(3:end-2) 0 0];
 
 x_nleo=x_nleo(1:Nstart);
 
+
+% Octave includes imaginary quantization noise:
+x_nleo=real(x_nleo);
 
 %---------------------------------------------------------------------
 % DEBUG: testing and compare 

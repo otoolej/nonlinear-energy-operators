@@ -1,10 +1,10 @@
 %-------------------------------------------------------------------------------
-% plot_eeg_examples: 
+% plot_eeg_examples: Plot some examples of the EEG
 %
-% Syntax: []=plot_eeg_examples()
+% Syntax: []=plot_eeg_examples(PRINT_PLOTS)
 %
-% Inputs: 
-%      - 
+% Inputs:
+%      PRINT_PLOTS - print or not, either 0 or 1; 
 %
 % Outputs: 
 %     [] - 
@@ -16,14 +16,18 @@
 % John M. O' Toole, University College Cork
 % Started: 04-04-2014
 %
-% last update: Time-stamp: <2014-04-07 14:09:08 (otoolej)>
+% last update: Time-stamp: <2014-04-18 11:09:17 (otoolej)>
 %-------------------------------------------------------------------------------
 function []=plot_eeg_examples(PRINT_PLOTS)
 if(nargin<1 || isempty(PRINT_PLOTS)), PRINT_PLOTS=0; end
 
 
-
 nleo_parameters;
+
+
+if(~exist(DATA_DIR,'dir'))
+    error('EEG data is needed for this function.');
+end
 
 
 b=load([D_NLEO_SIM 'eeg_segments_normterms.mat']);
