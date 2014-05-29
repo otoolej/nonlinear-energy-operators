@@ -6,7 +6,7 @@ described in [[1]](#references).
 Requires Matlab or Octave programming environments.
 
 
-# Contents
+# contents
 * [overview](#overview)
 * [quick start](#quick-start)
 * [requirements](#requirements)
@@ -29,7 +29,7 @@ and the proposed energy measure is defined as
  Γ[x(n)] = y²(n) + H[y(n)]²
 ```
 where y(n) is the derivative of x(n), estimated using the central-finite difference
-equation y(n)=[x(n+1)-x(n-1)]/2, and H[·] is the discrete Hilbert transform of $x(n)$.  Reference [[1]](#references) contains more details.
+equation y(n)=[x(n+1)-x(n-1)]/2, and H[·] is the discrete Hilbert transform of x(n).  Reference [[1]](#references) contains more details.
 
 
 # quick start
@@ -68,7 +68,7 @@ example,
 calls the function with frequency modulated signal with instantaneous frequency law of
 0.1+0.3sin(tπ/N).
 
-## noise Analysis
+## noise analysis
 To compare the bias for each method, run the function
 ```matlab
   >> bias_of_estimators;
@@ -108,8 +108,8 @@ newer, [Octave website](http://www.gnu.org/software/octave/index.html), with the
 
 # test computer setup
 - hardware:  Intel(R) Xeon(R) CPU E5-1603 0 @ 2.80GHz; 8GB memory.
-- operating system: Ubuntu GNU/Linux x86_64 distribution (Raring, 13.04), with Linux kernel 3.11.0-19-generic
-- software: Octave 3.6.4 (using Gnuplot 4.6 patchlevel 1), with 'octave-signal' toolbox and Matlab (R2009b, R2012a, and R2013a)
+- operating system: Ubuntu GNU/Linux x86_64 distribution (Trusty Tahr, 14.04), with Linux kernel 3.13.0-27-generic
+- software: Octave 3.8.1 (using Gnuplot 4.6 patchlevel 4), with 'octave-signal' toolbox and Matlab (R2009b, R2012a, and R2013a)
 
 ---
 
@@ -129,7 +129,7 @@ are permitted provided that the following conditions are met:
   list of conditions and the following disclaimer in the documentation and/or
   other materials provided with the distribution.
 
-  Neither the name of the University of Deusto nor the names of its
+  Neither the name of the University College Cork nor the names of its
   contributors may be used to endorse or promote products derived from
   this software without specific prior written permission.
 
