@@ -16,7 +16,7 @@
 % John M. O' Toole, University College Cork
 % Started: 04-04-2014
 %
-% last update: Time-stamp: <2014-04-18 11:05:16 (otoolej)>
+% last update: Time-stamp: <2014-06-05 17:50:09 (otoolej)>
 %-------------------------------------------------------------------------------
 function []=script_test_eeg_data(PRINT_PLOTS)
 if(nargin<1 || isempty(PRINT_PLOTS)), PRINT_PLOTS=0; end
@@ -28,14 +28,16 @@ if(~exist(DATA_DIR,'dir'))
 end
     
 
-methods_all={'teager','agarwal','abs_teager','palmu','envelope_diff'};
+methods_all={'teager','agarwal','abs_teager','envelope_diff','palmu','env_only'};
 fout=fopen([PIC_DIR 'eeg_results_out.org'],'w');
 
 figure(1); clf; hold all;
 fprintf(fout,'* NORMTERMS\n');
+fprintf('\n\n *** NORMTERMS *** \n\n');
 hax(1)=do_one_dataset('normterms',methods_all,fout,1);
 
 fprintf(fout,'\n\n* PRETERMS\n');
+fprintf('\n\n *** PRETERMS *** \n\n');
 hax(2)=do_one_dataset('preterms',methods_all,fout,2);
 
 fclose(fout);
@@ -60,15 +62,15 @@ end
 fprintf(fout,'|\n');
 fprintf(fout,'|------------------------------------------------------------|\n');
 
-LWIDTH=12; lshift=0.4;
+LWIDTH=8; lshift=0.3;
 lcolor={[34 85 51],[68 187 204],[136 221 221],[187 238 255],[0 85 187]};
-lcolor={[0 47 47],[105 0 17],[40 138 207],[242 97 1],[84 84 84]};
+lcolor={[0 47 47],[105 0 17],[40 138 207],[242 97 1],[84 84 84],[84 84 84]};
+ll=lines;
+ll=ll.*256;
+lcolor={ll(1,:),ll(2,:),ll(3,:),ll(4,:),ll(5,:),ll(6,:)};
 
-% $$$ figure(figno); clf; 
 hax=subtightplot(2,1,figno,[0.07,0.2],[0.15,0.1],[0.1,0.1]);
-% $$$ subplot(2,1,figno); 
 hold all;
-
 
 for p=1:2
     for n=1:2:(L-rem(L,2))
@@ -106,27 +108,59 @@ for p=1:2
                             roc_st.median_methodOne_auc]);        
     end
 
-    set(hp,'color','k','linewidth',LWIDTH-10);    
+    set(hp,'color','k','linewidth',2);    
     for q=1:L
         set(hl(q),'linewidth',LWIDTH,'color',lcolor{q}./256);        
     end
     
     fprintf(fout,'|\n');
 end
-ylim([0.5 1]);
+
+if(figno==1)
+    ylim([0.45 1]);
+else
+    ylim([0.5 1]);        
+end
+set(gca,'ytick',[0.5:0.1:1]);
 set(gca,'xtick',[]);
 ylabel('AUC');
+
+set(hax,'xcolor',[1 1 1]);
+
 if(figno==1)
-    legend(hl,'a: Teager-Kaiser','b: Agarwal-Gotman','c: abs. Teager-Kaiser','d: abs. Agarwal-Gotman', ...
-           'e: envelope-derivative','location','southeast');
+    hleg=legend(hl,'a: Teager-Kaiser','b: Agarwal-Gotman','c: abs. Teager-Kaiser', ...
+                'd: abs. Agarwal-Gotman','e: envelope-derivative', ...
+                'f: instantaneous energy','location','southeast');
     legend('boxoff');
-    
-    text(1,0.54,'a.'); text(9, 0.95,'a.'); 
-    text(2,0.54,'b.'); text(10,0.95,'b.');    
-    text(3,0.66,'c.'); text(11,0.97,'c.');        
-    text(4,0.66,'d.'); text(12,0.97,'d.');            
-    text(5,0.66,'e.'); text(13,0.95,'e.');                
+
+    yloc=0.50;  yloc2=0.97;
+    text(1,yloc,'a.','horizontalAlignment','center'); 
+    text(9, yloc2,'a.','horizontalAlignment','center'); 
+    text(2,yloc,'b.','horizontalAlignment','center'); 
+    text(10,yloc2,'b.','horizontalAlignment','center');    
+    text(3,yloc,'c.','horizontalAlignment','center'); 
+    text(11,yloc2,'c.','horizontalAlignment','center');        
+    text(4,yloc,'d.','horizontalAlignment','center'); 
+    text(12,yloc2,'d.','horizontalAlignment','center');            
+    text(5,yloc,'e.','horizontalAlignment','center'); 
+    text(13,yloc2,'e.','horizontalAlignment','center');                
+    text(6,yloc,'f.','horizontalAlignment','center'); 
+    text(14,yloc2,'f.','horizontalAlignment','center');                
 else
+    yloc=0.54;   yloc2=0.98;
+    text(1,yloc,'a.','horizontalAlignment','center'); 
+    text(9, yloc2,'a.','horizontalAlignment','center'); 
+    text(2,yloc,'b.','horizontalAlignment','center'); 
+    text(10,yloc2,'b.','horizontalAlignment','center');    
+    text(3,yloc,'c.','horizontalAlignment','center'); 
+    text(11,yloc2,'c.','horizontalAlignment','center');        
+    text(4,yloc,'d.','horizontalAlignment','center'); 
+    text(12,yloc2,'d.','horizontalAlignment','center');            
+    text(5,yloc,'e.','horizontalAlignment','center'); 
+    text(13,yloc2,'e.','horizontalAlignment','center');                
+    text(6,yloc,'f.','horizontalAlignment','center'); 
+    text(14,yloc2,'f.','horizontalAlignment','center');                
+    
     text(1.23,1.06,'no post-processing');
     text(8.55,1.06,'with moving-average filter');    
     text(1.23,0.47,'no post-processing');

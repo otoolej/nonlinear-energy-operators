@@ -14,7 +14,7 @@
 % John M. O' Toole, University College Cork
 % Started: 25-03-2014
 %
-% last update: Time-stamp: <2014-04-18 12:03:11 (otoolej)>
+% last update: Time-stamp: <2014-06-09 09:52:24 (otoolej)>
 %-------------------------------------------------------------------------------
 function []=properties_test_Hilbert_NLEO(prop_numb,PRINT_PLOTS)
 if(nargin<1 || isempty(prop_numb)), prop_numb=4; end
@@ -24,7 +24,10 @@ if(nargin<2 || isempty(PRINT_PLOTS)), PRINT_PLOTS=0; end
 % for plotting:
 FANCY_PLOT=1;
 FONT_NAME='Arial';
-FONT_SIZE=14;
+FONT_SIZE=12;
+
+nleo_parameters;
+
 
 if(PRINT_PLOTS), FANCY_PLOT=1; end
 method_teager_str=sprintf('%s%s%s','Teager','-','Kaiser');
@@ -71,9 +74,9 @@ switch prop_numb
     %---------------------------------------------------------------------
     % stationary signal: a₁cos(ω₁t + φ₁)
     %---------------------------------------------------------------------
-    x{1}=x1;
-    extact{1}=ones(1,N).*(a1^2)*(w1^2);    
-    extact_tk{1}=ones(1,N).*(a1^2)*sin(w1)^2;        
+    x{1}=x2./max(x2);
+    extact{1}=ones(1,N).*(a1^2)*(w2^2);    
+    extact_tk{1}=ones(1,N).*(a1^2)*sin(w2)^2;        
     
     % for plotting:    
     ysig_ticks=[-1 0 1];     ysig_limits=[-1.4 1.4];
@@ -151,11 +154,11 @@ for n=1:length(x)
 
     % plot:
     figure(n); clf; hold all;
-    hax(1)=subplot(2,1,1); hold all; hp(1)=plot(x{n}); 
+    hax(1)=subplot(2,1,1); hold all; hp(1)=plot(x{n},'color',lcolor{1}); 
     npart=4:N-4;
     hax(2)=subplot(2,1,2); hold all;  hp(2)=plot(npart,xn_hilbert{n}(npart), ...
-                                                 'color',[0 0.5 0]);  
-    hp(3)=plot(npart,xn_teager{n}(npart),'--r');
+                                                 '--','color',lcolor{3});  
+    hp(3)=plot(npart,xn_teager{n}(npart),'-','color',lcolor{2});  
     
     h=legend(method_hilbert_str,method_teager_str);
     if(~isempty(leg_pos))

@@ -34,7 +34,7 @@
 % John M. O' Toole, University College Cork
 % Started: 03-04-2014
 %
-% last update: Time-stamp: <2014-04-18 13:09:57 (otoolej)>
+% last update: Time-stamp: <2014-06-19 15:30:24 (otoolej)>
 %-------------------------------------------------------------------------------
 function [x_nleo]=discrete_Hilbert_diff_operator(x)
 
@@ -98,9 +98,6 @@ N=length(x); Nh=ceil(N/2);
 k=0:N-1;
 
 H=-j.*sign(Nh-k).*sign(k);
-
-%H=fft( ifft(H).*padWin(shiftWin(hamming(3)),N).' );
-
 x_hilb=ifft( fft(x).*H );
 
 

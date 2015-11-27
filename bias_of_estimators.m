@@ -17,7 +17,7 @@
 % John M. O' Toole, University College Cork
 % Started: 28-03-2014
 %
-% last update: Time-stamp: <2014-04-18 11:25:37 (otoolej)>
+% last update: Time-stamp: <2014-06-06 18:20:27 (otoolej)>
 %-------------------------------------------------------------------------------
 function []=bias_of_estimators(PRINT_PLOTS)
 if(nargin<1 || isempty(PRINT_PLOTS)), PRINT_PLOTS=0; end
@@ -94,23 +94,31 @@ hp(3)=plot( npart, mean(nplain_teag(:,npart)));
 hp(2)=plot( npart, mean(nenv_diff(:,npart)),'--');
 
 
+line(xlim,[1 1],'linestyle','-','linewidth',3.5,'color',[1 1 1].*0.5);
+
+
 xlabel('time (samples)'); ylabel('energy');
-h=legend('Agarwal-Gotman','envelope-derivative','Teager-Kaiser');
-legend(h,'location','northeast');
-% $$$ cur_pos=get(h,'position');
-% $$$ legend(h,'position',[290 cur_pos(2:end)]);
+h=legend('Agarwal-Gotman','envelope-derivative','Teager-Kaiser','\sigma^2');
+legend(h,'location','best');
 legend('boxoff');
 
 if(RESAMPLE_X)
-    set(gca,'ylim',[0.24 0.4]); 
-    set(gca,'ytick',[0.25 0.3 0.35 0.4]);    
+    set(gca,'ylim',[0.24 0.37]); 
+    set(gca,'ytick',[0.25 0.3 0.35]);    
+    set(gca,'ylim',[0 1.2]); 
+    set(gca,'ytick',[0:0.2:1]);    
+    
+    
     set(gca,'xlim',[0 400]);    
     set(gca,'xtick',[0:100:400]);
     set(hp,'linewidth',1.4);
     set(hp(1),'color',lcolor{1}); set(hp(2),'color',lcolor{2});
     set(hp(3),'color',lcolor{3});    
-% $$$     set(gca,'xticklabel',{'0',[],'200',[],'400',[],'600',[],'800'});
+    dd=get(findobj(gcf,'tag','legend'),'position');
+    set(findobj(gcf,'tag','legend'),'position',[0.6, 0.45, dd(3:4)])
+    
     set_gca_fonts(FONT_NAME,FONT_SIZE,gca);
+    
 end
 
 

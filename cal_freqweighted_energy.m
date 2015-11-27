@@ -41,7 +41,7 @@
 % John M. O' Toole, University College Cork
 % Started: 04-04-2014
 %
-% last update: Time-stamp: <2014-04-18 12:23:59 (otoolej)>
+% last update: Time-stamp: <2014-06-05 14:50:34 (otoolej)>
 %-------------------------------------------------------------------------------
 function [x_nleo]=cal_freqweighted_energy(x,Fs,method,wlength_ma, ...
                                                  bandpass_filter_params)
@@ -85,7 +85,7 @@ switch method
     x_nleo=abs(x_nleo);
     
   case 'env_only'
-    x_nleo=abs( hilbert(x) ).^2;
+    x_nleo=abs( (x) ).^2;
     
     
   otherwise 

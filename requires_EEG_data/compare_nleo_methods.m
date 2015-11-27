@@ -23,7 +23,7 @@
 % John M. O' Toole, University College Cork
 % Started: 04-04-2014
 %
-% last update: Time-stamp: <2014-04-06 19:00:58 (otoolej)>
+% last update: Time-stamp: <2014-06-05 17:36:01 (otoolej)>
 %-------------------------------------------------------------------------------
 function [roc_summary_stats,corr_cc]=compare_nleo_methods(data_type,method1,method2,fout,MA_FILT)
 if(nargin<1 || isempty(data_type)), data_type='normterms'; end
@@ -36,6 +36,8 @@ if(nargin<5 || isempty(MA_FILT)), MA_FILT=[]; end
 
 corr_cc=[];
 DBplot=0; 
+CROSS_VALIDATION=0;
+TRAIN_ALL_DATA=0;
 
 %---------------------------------------------------------------------
 % 0. method's parameters are in here:
@@ -230,8 +232,8 @@ fw_fprintf(fout,'effect size (CI): %g (%g -- %g)\n',effect_size_st.g1,...
 
 
 if(~isempty(corr_cc))
-    fw_fprintf(fout,'Correlation with KIRSI method [range]: %g [%g--%g]\n',mean(corr_cc), ...
-               min(corr_cc),max(corr_cc));
+    fw_fprintf(fout,'Correlation between %s and %s is [range]: %g [%g--%g]\n',...
+               method1,method2,mean(corr_cc),min(corr_cc),max(corr_cc));
 end
 
 

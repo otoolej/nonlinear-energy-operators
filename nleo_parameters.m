@@ -7,12 +7,16 @@ WIN_LENGTH=1.5; % MA window length (in seconds)
 
 % low-pass filter the data (both preterms and normterms data); 
 % in Hz, zero to turn off
-LOW_PASS_DATA=30; 
+LOW_PASS_DATA=20; 
 HIGH_PASS_DATA=0;
 
 
-lcolor={[0 47 47]./256,[105 0 17]./256,[40 138 207]./256, ...
-        [242 97 1]./256,[84 84 84]./256};
+% $$$ lcolor={[0 47 47]./256,[105 0 17]./256,[40 138 207]./256, ...
+% $$$         [242 97 1]./256,[84 84 84]./256};
+ll=lines;
+lcolor={ll(1,:),ll(2,:),ll(3,:),ll(4,:),ll(5,:),ll(6,:)};
+
+
 %---------------------------------------------------------------------
 % the REST is not used (for EMBC-2014 paper)
 %---------------------------------------------------------------------
@@ -38,6 +42,7 @@ NLEO_params_opt.preterms.agarwal         =[];
 NLEO_params_opt.preterms.envelope_diff   =[];
 NLEO_params_opt.preterms.palmu           =[];  
 NLEO_params_opt.preterms.abs_teager      =[];
+NLEO_params_opt.preterms.env_only        =[];
 
 
 
