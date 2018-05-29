@@ -148,8 +148,10 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 # references
 
-1. J.M. O' Toole and N.J. Stevenson, “Assessing instantaneous energy in the EEG: a
-non-negative, frequency-weighted energy operator”, under review, 2014
+1. JM O' Toole and NJ Stevenson, “Assessing instantaneous energy in the EEG: a
+non-negative, frequency-weighted energy operator”, IEEE Int. Conf. on Eng. in Medicine and
+Biology, EMBC’14, Chicago, USA, August 2014. [ [paper](publications/JMOToole_energy_EMBC14.pdf) | [poster](publications/EMBC_poster_Aug2014_NLEO.pdf) ]
+
 
 ---
 
@@ -158,10 +160,9 @@ non-negative, frequency-weighted energy operator”, under review, 2014
 John M. O' Toole
 
 Neonatal Brain Research Group,  
-Irish Centre for Fetal and Neonatal Translational Research,  
+Irish Centre for Fetal and Neonatal Translational Research ([INFANT](http://www.infantcentre.ie)),  
 Department of Paediatrics and Child Health,  
 University College Cork,  
-Western Gateway Building, Room 2.17,  
 Cork, Ireland
 
 
