@@ -5,6 +5,7 @@ Collection of M-files (computer code) to implement instantaneous energy measures
 described in [[1]](#references).
 Requires Matlab or Octave programming environments.
 
+__Update (Sept. 2019): Python version of this code at__ https://github.com/otoolej/envelope_derivative_operator
 
 # contents
 * [overview](#overview)
